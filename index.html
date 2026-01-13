@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OA Journey Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 200px,
+                rgba(0, 51, 102, 0.03) 200px,
+                rgba(0, 51, 102, 0.03) 400px
+            );
+            background-size: 400px 400px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .watermark-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .draft-text {
+            position: absolute;
+            font-size: 4em;
+            font-weight: bold;
+            color: rgba(0, 51, 102, 0.08);
+            transform: rotate(-45deg);
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .header-section,
+        .journey-row,
+        .legend {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            display: block;
+            background: #003366;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 20px;
+            border: 3px solid #0066cc;
+        }
+
+        h1 {
+            color: #194790;
+            font-size: 1.8em;
+        }
+
+        .journey-row {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #0066cc;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -30px;
+            z-index: 10;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 1; transform: translateX(-50%) translateY(-3px); }
+        }
+
+        .connection-line {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #0066cc;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -20px;
+            z-index: 5;
+        }
+
+        .phase-header {
+            background: #1b75bc;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            border-radius: 4px 4px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+ .phase-header2 {
+            background: #00706d;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            border-radius: 4px 4px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+ .phase-header3 {
+            background: #618c3d;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            border-radius: 4px 4px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+ .phase-header4 {
+            background: #c1782b;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            border-radius: 4px 4px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .phase-content {
+            background: #3a95cd;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+            border: 2px solid #003366;
+            border-top: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+.phase-content2 {
+            background: #04a39f;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+            border: 2px solid #003366;
+            border-top: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+.phase-content3 {
+            background: #87b64a;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+            border: 2px solid #003366;
+            border-top: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+.phase-content4 {
+            background: #e89831;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+            border: 2px solid #003366;
+            border-top: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+
+        .service-box {
+            background: white;
+            border: 2px solid #0066cc;
+            border-radius: 6px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 140px;
+        }
+
+        .service-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,102,204,0.3);
+            border-color: #004499;
+        }
+
+        .service-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0066cc;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95em;
+            font-weight: bold;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .service-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .service-name {
+            font-size: 1em;
+            color: #333;
+            line-height: 1.3;
+            font-weight: 500;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-labels {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .label {
+            font-size: 0.65em;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .label.e {
+            background: #90cdf4;
+            color: #1a365d;
+        }
+
+        .label.hf {
+            background: #fbd38d;
+            color: #744210;
+        }
+
+        .label.arts {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .sub-items {
+            font-size: 0.73em;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal h2 {
+            color: #003366;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0066cc;
+        }
+
+        .modal p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 18px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .phase-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 50px 20px;
+                padding: 30px 20px;
+            }
+        }
+
+.popup-scroll {
+max-height: 60vh;
+overflow-y: auto;
+padding-right: 8px;
+}
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .phase-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="watermark-pattern" id="watermark"></div>
+        <div class="header-section">
+            <!-- LOGO PLACEHOLDER: Replace the div below with an img tag -->
+            <img src="https://www.goodwill.org/wp-content/webp-express/webp-images/uploads/2019/06/cropped-Goodwill-Industries-International-Logo-1.jpg.webp" alt="Goodwill Industries International Logo" style="width: 100px; height: auto; margin: 0 auto 20px; display: block;">
+            
+            <h1>Goodwill Opportunity Accelerator® - Key Service Delivery Areas</h1>
+<br>
+<p><i>Click on the services below for more information.</i></p>
+        </div>
+
+
+        <!-- ORG PREP Row -->
+        <div class="journey-row">
+            <div class="connection-line"></div>
+            <div class="flow-arrow"></div>
+            <div class="phase-header">ORGANIZATIONAL PREP</div>
+            <div class="phase-content">
+                <div class="service-box" data-id="1">
+                    <div class="service-number">1</div>
+                    <div class="service-icon">👥</div>
+                    <div class="service-name">Functionally Aligned Staffing Model</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="2">
+                    <div class="service-number">2</div>
+                    <div class="service-icon">🎓</div>
+                    <div class="service-name">Goodwill® Career Coach and Navigator Certificate</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="3">
+                    <div class="service-number">3</div>
+                    <div class="service-icon">🌟</div>
+                    <div class="service-name">OA Fellows</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="4">
+                    <div class="service-number">4</div>
+                    <div class="service-icon">🔗</div>
+                    <div class="service-name">Referral & Wraparound Integration</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="5">
+                    <div class="service-number">5</div>
+                    <div class="service-icon">🤝</div>
+                    <div class="service-name">Employer Partnerships</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="6">
+                    <div class="service-number">6</div>
+                    <div class="service-icon">📊</div>
+                    <div class="service-name">Evaluating Impact & Metrics</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASSESS & PLAN Row -->
+        <div class="journey-row">
+            <div class="connection-line"></div>
+            <div class="flow-arrow"></div>
+            <div class="phase-header2">ASSESS & PLAN</div>
+            <div class="phase-content2">
+                <div class="service-box" data-id="7">
+                    <div class="service-number">7</div>
+                    <div class="service-icon">📢</div>
+                    <div class="service-name">Outreach/Recruitment</div>
+                    <div class="service-labels">
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="8">
+                    <div class="service-number">8</div>
+                    <div class="service-icon">📝</div>
+                    <div class="service-name">Registration/Intake</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>                     
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="9">
+                    <div class="service-number">9</div>
+                    <div class="service-icon">✅</div>
+                    <div class="service-name">Assessments</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                    <div class="sub-items">
+                        9A: Needs | 9B: Basic Education<br>
+                        9C: Career Readiness | 9D: Digital Skills
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="10">
+                    <div class="service-number">10</div>
+                    <div class="service-icon">ℹ️</div>
+                    <div class="service-name">Orientation</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+		<div class="service-box" data-id="11">
+                    <div class="service-number">11</div>
+                    <div class="service-icon">📋</div>
+                    <div class="service-name">Individual Career and Financial Plan</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EQUIP & CONNECT Row -->
+        <div class="journey-row">
+            <div class="connection-line"></div>
+            <div class="flow-arrow"></div>
+            <div class="phase-header3">EQUIP & CONNECT</div>
+            <div class="phase-content3">
+                
+
+                <div class="service-box" data-id="12">
+                    <div class="service-number">12</div>
+                    <div class="service-icon">🚎</div>
+                    <div class="service-name">Wraparound Supports</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="13">
+                    <div class="service-number">13</div>
+                    <div class="service-icon">💲</div>
+                    <div class="service-name">Financial Education</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="14">
+                    <div class="service-number">14</div>
+                    <div class="service-icon">📚</div>
+                    <div class="service-name">Foundational Skills</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="15">
+                    <div class="service-number">15</div>
+                    <div class="service-icon">💻</div>
+                    <div class="service-name">Digital Skills</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+		<div class="service-box" data-id="16">
+                    <div class="service-number">16</div>
+                    <div class="service-icon">🔧</div>
+                    <div class="service-name">Occupation-Specific Skills</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>                   
+                </div>
+
+                <div class="service-box" data-id="17">
+                    <div class="service-number">17</div>
+                    <div class="service-icon">🔍</div>
+                    <div class="service-name">Career Exploration Opportunities</div>
+                    <div class="service-labels">                        
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="18">
+                    <div class="service-number">18</div>
+                    <div class="service-icon">👩‍💼</div>
+                    <div class="service-name">Job Search Prep</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LAUNCH & EVALUATE Row -->
+        <div class="journey-row">
+            <div class="phase-header4">LAUNCH & EVALUATE</div>
+            <div class="phase-content4">
+                
+                <div class="service-box" data-id="19">
+                    <div class="service-number">19</div>
+                    <div class="service-icon">💼</div>
+                    <div class="service-name">Job Placement Assistance</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="20">
+                    <div class="service-number">20</div>
+                    <div class="service-icon">📈</div>
+                    <div class="service-name">Retention Services and Followup</div>
+                    <div class="service-labels">
+                        <span class="label e">E</span>
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+
+                <div class="service-box" data-id="21">
+                    <div class="service-number">21</div>
+                    <div class="service-icon">🏆</div>
+                    <div class="service-name">Alumni Engagement</div>
+                    <div class="service-labels">
+                        <span class="label hf">HF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background: #90cdf4;"></div>
+                <span><strong>E</strong> = OA Essentials</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #fbd38d;"></div>
+                <span><strong>HF</strong> = OA High Fidelity</span>
+            </div>
+                   </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script>
+        // Generate watermark pattern
+        const watermark = document.getElementById('watermark');
+        const containerHeight = document.querySelector('.container').offsetHeight;
+        const containerWidth = document.querySelector('.container').offsetWidth;
+       
+        const rows = Math.ceil(containerHeight / 200) + 2;
+        const cols = Math.ceil(containerWidth / 300) + 2;
+       
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const draft = document.createElement('div');
+                draft.className = 'draft-text';
+                draft.textContent = 'DRAFT';
+                draft.style.top = (row * 200 - 100) + 'px';
+                draft.style.left = (col * 300 - 100) + 'px';
+                watermark.appendChild(draft);
+            }
+        }
+
+        const definitions = {
+            1: {
+                title: "1. Functionally Aligned Staffing Model",
+                description:`
+
+<div class="popup-scroll">
+<p><b>Definition: </b> The organization must demonstrate through its staffing model that core functions are aligned with OA best practices—meaning staff are organized into distinct functional groups, ensuring that core functions are covered for a specific area of OA service delivery.</p>
+<br>
+<p> 
+<span class="label e">E</span>&rarr; 
+<b>OA Essentials: </b>
+Should ensure core functions through existing staffing structures.</p>
+<br>
+<p>
+<span class="label hf">HF</span>&rarr; 
+<b>OA High Fidelity: </b>The following distinct functional areas must be assigned to a role:
+<p><i>- Career Navigator(s) –</i> Provides direct, individualized support to participants.</p>
+<p><i>- Trainer(s) –</i> Delivers skills training aligned with career pathways. Functions may be covered by partner staff.</p>
+<p><i>- Business Engagement Staff –</i> Builds and maintains employer partnerships.</p>
+<p><i>- Mission Leader(s) –</i> Oversees operations and leads the functional teams.</p>
+<p><i>- Data Specialist(s) –</i> Ensures data accuracy, completeness, and alignment with reporting needs.</p>
+</p>
+<br>
+<p><b>Optional:</b>
+<p><i>- Community Engagement Team Member(s) –</i> Engages community partners to support OA resource needs.</p>
+</p>
+<br>
+<p><b>Success Tracking: </b>Organizations will identify each role and functions.</p>
+<br>
+<p><b>Verification: </b>Org chart and job description.</p>
+</div>
+`
+            },
+            2: {
+                title: "2. Goodwill® Career Coach and Navigator Certificate",
+                description: 
+`
+<p><b>Definition: </b>Goodwill® Career Navigator and Coach Professional Certificate for team members providing coaching and career navigation services, which includes intensive, collaborative support to help clients identify and address employment barriers.</p>
+<br>
+<p>
+<span class="label e">E</span>&rarr;
+<b>OA Essentials: </b>At least 50% of team members providing these services are certified within their first year of OA Adoption</p>
+<br>
+<p>
+<span class="label hf">HF</span>&rarr;
+<b>OA High Fidelity: </b>100% of team members providing these services are certified within their first year of OA Adoption.</p>
+<br>
+<p><b>Optional: </b>Any mission team member—not just those in coaching roles—may complete the training.</p>
+<br>
+<p><b>Success Tracking: </b>Number and percentage of trained career navigators.</p>
+`
+            },
+            3: {
+                title: "3. OA Fellows",
+                description:
+`
+<p><b>Definition: </b>Leadership development through participation in the OA Fellows program. OA Fellows are ambassadors for the Opportunity Accelerator (OA) initiative. They are trained to understand the OA framework, applying and testing tools and resources to enhance its effectiveness. Fellows equip Goodwill peers across organizations to deploy the framework locally through virtual and in-person training supported by GII team members and external subject matter experts. By advancing adoption of the OA model, OA Fellows help transform best practices into common practices, ensuring equitable and consistently effective mission service delivery within their local Goodwill organizations and associations.</p>
+<br>
+<p>
+<span class="label e">E</span>&rarr;
+<b>OA Essentials: </b>At least one team member is currently participating or has completed the program.</p>
+<br>
+<p>
+<span class="label hf">HF</span>&rarr;
+<b>OA High Fidelity: </b>At least two team members are currently participating or have completed the program.</p>
+<br>
+<p><b>Optional: </b>No limit on the number of OA Fellows per organization.</p>
+<br>
+<p><b>Success Tracking: </b>Number of OA Fellows.</p>
+`
+            },
+            4: {
+                title: "4. Referral & Wraparound Integration",
+                description: 
+`
+<p><b>Definition: </b>Building partnerships and using referral technology to connect individuals to support services.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Have a referral process and partnerships with community organizations that provide support services.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use Automated Referral Technology (ART) and have warm hand-off partnerships guided by regional needs data.</p>
+<br>
+<p><b>Optional: </b>Choice of ART platform, data source, and types of partner organizations (must align with regional needs).</p>
+<br>
+<p><b>Success Tracking: </b>
+<p>- Number of closed loop ART referrals</p>
+<p>- Number of partnerships with wrap-around support organizations</p>
+</p>
+`
+            },
+            5: {
+                title: "5. Employer Partnerships",
+                description: 
+`
+<p><b>Definition: </b>Engaging employers using labor market data to co-create training and job placement strategies.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Establish referral partnerships with local employers that offer job opportunities</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use specific labor market data (e.g., Chmura, DOL) to develop partnerships for job placement and co-created training programs.</p>
+<br>
+<p><b>Optional: </b>Choice of employer partners and LMI source.</p>
+<br>
+<p><b>Success Tracking: </b>
+<p>- Number of employer partnerships</p>
+<p>- Number of employer referrals (outgoing)</p>
+</p>
+`
+            },
+            6: {
+                title: "6. Evaluating Impact & Metrics",
+                description: 
+`
+<p><b>Definition: </b>Collecting and analyzing data to measure KPIs and participant feedback throughout the journey.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Collect a short list of individual-level data fields using a case management system. Post-placement data collected at 30, 60, 90, and 180 days. Individual-level data must be submitted to GII monthly.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Collect a long list of individual-level data fields using CaseWorthy or a similar case management system. Post-placement data collected at 30, 60, 90, 180, and 365 days. Individual-level data must be submitted to GII monthly.</p>
+<br>
+<p><b>Optional: </b>Choice of case management system (must be able to capture OA data). Forms can be paper or digital. Additional KPIs may be collected.</p>
+<br>
+<p><b>Success Tracking: </b>KPI data and standardized participant feedback at intake, goal completion, placement, and post-placement intervals.</p>
+`
+            },
+            7: {
+                title: "7. Outreach/Recruitment",
+                description:
+`
+<p><b>Definition: </b>Promote mission services using diverse outreach methods and referral technologies.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not Required.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use ART platforms, and referral partners to reach beneficiaries.</p>
+<br>
+<p><b>Optional: </b>Choice of outreach methods and ART platforms.</p>
+<br>
+<p><b>Success Tracking: </b>Number of incoming referrals that lead to enrollment.</p>
+`
+            },
+            8: {
+                title: "8. Registration/Intake",
+                description: 
+`
+<p><b>Definition: </b>Conduct intake services to meet with potential clients/job seekers, learn more about who they are and what services they are interested in at Goodwill. During the intake services, collect demographic, work and educational history and other personal information that determines eligibility.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Intake must align with short list of data fields.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Intake must align with long list of data fields.</p>
+<br>
+<p><b>Optional: </b>Choice of intake form (paper or digital); additional data may be collected.</p>
+<br>
+<p><b>Success Tracking: </b>Number of individuals completing intake.</p>
+`
+            },
+            9: {
+                title: "9. Assessments",
+                description: 
+`
+<div class="popup-scroll">
+<p><b>Definition: </b>Career coach or navigator selects assessments based on individual needs.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>At least one valid assessment completed by 100% of individuals served.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must use Northstar completed by 100% of individuals served.</p>
+<br>
+<p><b>Optional: </b>Additional assessments may be used; meetings can be virtual or in-person.</p>
+<br>
+<p><b>Success Tracking: </b>
+<p>- Number and percentage completing assessments</p>
+<p>- Number and percentage completing Northstar assessments</p>
+</p>
+<br>
+<p><b>9a. Needs Assessment</b><p>
+<hr>
+<p><b>Definition: </b>Holistic evaluation of participant needs across multiple domains including: financial capability, health care, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of individuals served must complete a needs assessment.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of individuals served must complete a needs assessment.</p>
+<br>
+<p><b>Optional: </b>Choice of assessment tool.</p>
+<br>
+<p><b>Success Tracking: </b>Number and percentage completing needs assessment.</p>
+<br>
+<p><b>9b. Basic Education Assessment</b><p>
+<hr>
+<p><b>Definition: </b>Assess reading, writing, math, and English language proficiency levels for individuals.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Required for individuals without a diploma enrolling in occupational training.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Required for individuals without a diploma enrolling in occupational training.</p>
+<br>
+<p><b>Optional: </b>Any valid and reliable assessment; may be provided directly or via referral.</p>
+<br>
+<p><b>Success Tracking: </b>Number of eligible individuals completing assessment.</p>
+<br><p><b>9c. Career Readiness Assessment</b><p>
+<hr>
+<p><b>Definition: </b>Evaluate interests and job skills to identify suitable career paths.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
+<br>
+<p><b>Optional: </b>JOFI or other assessments may be used.</p>
+<br>
+<p><b>Success Tracking: </b></p>
+<p>- Number and percentage completing career readiness/interest assessments</p>
+<p>- Number completing JOFI assessments</p>
+
+<br>
+<p><b>9d. Digital Skills Assessment</b><p>
+<hr>
+<p><b>Definition: </b>Evaluate comfort and gaps in basic digital skills.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must complete any valid digital skills assessment.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must complete at least one Northstar assessment.</p>
+<br>
+<p><b>Optional: </b>Other assessments may be used.</p>
+<br>
+<p><b>Success Tracking: </b></p>
+<p>- Number and percentage completing digital skills assessments</p>
+<p>- Number and percentage completing Northstar assessments</p>
+<br>
+</div>
+`
+            },
+            10: {
+                title: "10. Orientation",
+                description: 
+`
+<p><b>Definition: </b>Provide welcome materials and sessions explaining available services.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of individuals complete orientation prior to enrollment.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of individuals complete orientation prior to enrollment.</p>
+<br>
+<p><b>Optional: </b>Format can be group or individual, virtual or in-person.</p>
+<br>
+<p><b>Success Tracking: </b>Number and percentage completing orientation.</p>
+`
+
+            },
+            11: {
+                title: "11. Individual Career and Financial Plan (ICFP)",
+                description: 
+`
+<p><b>Definition: </b>A personalized plan with SMART goals that define their career pathway, financial stability and other self-sufficiency goals.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of participants complete an ICFP.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of participants complete an ICFP.</p>
+<br>
+<p><b>Optional: </b>Organizations may use the standard ICFP template or any other paper or digital form that meets the required criteria.</p>
+<br>
+<p><b>Success Tracking: </b>Number and percentage completing ICFP.</p>
+`
+
+            },
+            12: {
+                title: "12. Wraparound Supports",
+                description: 
+`
+<p><b>Definition: </b>Provide support services to remove barriers to success including remedial education, financial capability, health care, mental health, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer resources aligned with individual needs.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer resources aligned with individual needs.</p>
+<br>
+<p><b>Optional: </b>Services may be provided directly or via partners; additional supports like dental care, financial incentives may be included. </p>
+<br>
+<p><b>Success Tracking: </b>Number of individuals receiving at least one wrap-around support.</p>
+`
+
+            },
+            13: {
+                title: "13. Financial Education",
+                description: 
+`
+<p><b>Definition: </b>Guidance on personal finance management and planning.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer financial education.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer financial education.</p>
+<br>
+<p><b>Optional: </b>Delivery method and curriculum. Provided directly or through partners.</p>
+<br>
+<p><b>Success Tracking: </b>Number completing one financial education course.</p>
+`
+
+            },
+            14: {
+                title: "14. Foundational Skills",
+                description: 
+`
+<p><b>Definition: </b>Training in personal and interpersonal competencies for employment.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer foundational skills training.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer foundational skills training and include at least one course from the Skills to Succeed Academy curriculum.</p>
+<br>
+<p><b>Optional: </b>Delivery method; aligned with employer feedback. Provided directly or through partners.</p>
+<br>
+<p><b>Success Tracking: </b></p>
+<p>- Number completing at least one foundational skills course.</p>
+<p>- Number of individuals completing at least one Skills to Succeed course</p>
+`
+
+            },
+            15: {
+                title: "15. Digital Skills",
+                description: 
+`
+<p><b>Definition: </b>Teach use of computers, software, and online tools for employment. </p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
+<br>
+<p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners.</p>
+<br>
+<p><b>Success Tracking: </b>Number completing one digital skills course.</p>
+`
+
+            },
+            16: {
+                title: "16. Occupation-Specific Skills",
+                description: 
+`
+<p><b>Definition: </b>Training and certifications leading to industry-recognized credentials.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Offer occupational skills training aligned with local labor market demand. </p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Offer occupational skills training aligned with employer input and local labor market demand. Occupations must pay livable wages based in geographic areas. </p>
+<br>
+<p><b>Optional: </b>Delivery method, training type, and credential; aligned with local demand. Provided directly or through partners.</p>
+<br>
+<p><b>Success Tracking: </b>Number completing training or receiving credentials.</p>
+`
+
+            },
+            17: {
+                title: "17. Career Exploration Opportunities",
+                description: 
+`
+<p><b>Definition: </b>Hands-on experiences to learn about different careers such as job shadowing, on-the-job training (OJT), learn-and-earn, internships, pre-apprenticeships, apprenticeships, job site tours, informational employment observations, and simulated environments using virtual reality (VR) headsets.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not required.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer career exploration activities.</p>
+<br>
+<p><b>Optional: </b>Type of experience and delivery method; aligned with in-demand occupations. Provided directly or through partners.</p>
+<br>
+<p><b>Success Tracking: </b>Number completing career exploration activities.</p>
+`
+
+            },
+            18: {
+                title: "18. Job Search Prep",
+                description: 
+`
+<p><b>Definition: </b>Support with resumes, interviews, and job applications.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must include resume and interview prep.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must include resume and interview prep.</p>
+<br>
+<p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners </p>
+<br>
+<p><b>Success Tracking: </b>Number completing job search/prep assistance.</p>
+`
+
+            },
+            19: {
+                title: "19. Job Placement Assistance",
+                description: 
+`
+<p><b>Definition: </b>Engage employers to identify job openings and create employment opportunities.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer job placement assistance.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must engage employers and place individuals in jobs with livable wages, based on MIT Living Wage Calculator (livingwage.mit.edu).</p>
+<br>
+<p><b>Optional: </b>Employer types aligned with local labor market.</p>
+<br>
+<p><b>Success Tracking: </b></p>
+<p>- Number receiving placement assistance</p>
+<p>- Number placed in jobs</p>
+`
+
+            },
+            20: {
+                title: "20. Retention Services and Followup",
+                description: 
+`
+<p><b>Definition: </b>Ongoing support provided to individuals after job placement or training completion to help them retain employment and advance in their careers, including access to wraparound supports and skill-building aligned with their goals</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Follow-up at 30, 60, 90, and 180 days.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Follow-up at 30, 60, 90, 180, and 365 days.</p>
+<br>
+<p><b>Optional: </b>Additional follow-up periods; use of verification tools such as employer confirmation, paystub or offer letter submission, platforms like The Work Number, etc. Offer financial incentives to retain employment.</p>
+<br>
+<p><b>Success Tracking: </b>o	Number retained at each interval (30, 60, 90, 180, 365 days)</p>
+`
+
+            },
+            21: {
+                title: "21. Alumni Engagement",
+                description: `
+<p><b>Definition: </b>Long-term engagement of individuals after program completion or job placement—extending beyond one year, through networking, mentorship, and/or leveraging alumni as teachers or teaching assistants.</p>
+<br>
+<p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not required.</p>
+<br>
+<p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must establish at least one method of alumni engagement.</p>
+<br>
+<p><b>Optional: </b>Format and frequency of engagement.</p>
+<br>
+<p><b>Success Tracking: </b>Number participating in alumni engagement.</p>
+`
+
+            }
+        };
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const closeBtn = document.querySelector('.close');
+
+        document.querySelectorAll('.service-box').forEach(item => {
+            item.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const def = definitions[id];
+                modalTitle.textContent = def.title;
+                modalDescription.innerHTML = def.description;
+                modal.style.display = 'block';
+            });
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
