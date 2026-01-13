@@ -391,7 +391,7 @@
 
         .legend {
             display: flex;
-            justify-content: center;
+            justify-content: right;
             gap: 25px;
             margin-top: 30px;
             padding: 15px;
@@ -402,7 +402,8 @@
 
         .legend-item {
             display: flex;
-            align-items: center;
+            align-items: right;
+text-align: right;
             gap: 8px;
             font-size: 0.85em;
         }
@@ -410,6 +411,7 @@
         .legend-box {
             width: 30px;
             height: 18px;
+text-align: right;
             border-radius: 3px;
             border: 1px solid #ddd;
         }
@@ -424,6 +426,17 @@
                 padding: 30px 20px;
             }
         }
+.oa-levels-box {
+border: px solid #194790;
+border-radius: 6px;
+padding: 12px 14px;
+margin: 16px 0;
+background-color: #e6e7e8;
+}
+
+.oa-levels-box p{
+margin: 6px 0;
+}
 
 .popup-scroll {
 max-height: 60vh;
@@ -448,6 +461,17 @@ padding-right: 8px;
             <h1>Goodwill Opportunity Accelerator® - Key Service Delivery Areas</h1>
 <br>
 <p><i>Click on the services below for more information.</i></p>
+<div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background: #90cdf4;"></div>
+                <span><strong>E</strong> = OA Essentials</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #fbd38d;"></div>
+                <span><strong>HF</strong> = OA High Fidelity</span>
+            </div>
+                   </div>
+
         </div>
 
 
@@ -694,16 +718,7 @@ padding-right: 8px;
             </div>
         </div>
 
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-box" style="background: #90cdf4;"></div>
-                <span><strong>E</strong> = OA Essentials</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box" style="background: #fbd38d;"></div>
-                <span><strong>HF</strong> = OA High Fidelity</span>
-            </div>
-                   </div>
+        
     </div>
 
     <div id="modal" class="modal">
@@ -742,6 +757,7 @@ padding-right: 8px;
 <div class="popup-scroll">
 <p><b>Definition: </b> The organization must demonstrate through its staffing model that core functions are aligned with OA best practices—meaning staff are organized into distinct functional groups, ensuring that core functions are covered for a specific area of OA service delivery.</p>
 <br>
+<div class="oa-levels-box">
 <p> 
 <span class="label e">E</span>&rarr; 
 <b>OA Essentials: </b>
@@ -756,6 +772,7 @@ Should ensure core functions through existing staffing structures.</p>
 <p><i>- Mission Leader(s) –</i> Oversees operations and leads the functional teams.</p>
 <p><i>- Data Specialist(s) –</i> Ensures data accuracy, completeness, and alignment with reporting needs.</p>
 </p>
+</div>
 <br>
 <p><b>Optional:</b>
 <p><i>- Community Engagement Team Member(s) –</i> Engages community partners to support OA resource needs.</p>
@@ -773,6 +790,7 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Goodwill® Career Navigator and Coach Professional Certificate for team members providing coaching and career navigation services, which includes intensive, collaborative support to help clients identify and address employment barriers.</p>
 <br>
+<div class="oa-levels-box">
 <p>
 <span class="label e">E</span>&rarr;
 <b>OA Essentials: </b>At least 50% of team members providing these services are certified within their first year of OA Adoption</p>
@@ -780,6 +798,7 @@ Should ensure core functions through existing staffing structures.</p>
 <p>
 <span class="label hf">HF</span>&rarr;
 <b>OA High Fidelity: </b>100% of team members providing these services are certified within their first year of OA Adoption.</p>
+</div>
 <br>
 <p><b>Optional: </b>Any mission team member—not just those in coaching roles—may complete the training.</p>
 <br>
@@ -792,6 +811,7 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Leadership development through participation in the OA Fellows program. OA Fellows are ambassadors for the Opportunity Accelerator (OA) initiative. They are trained to understand the OA framework, applying and testing tools and resources to enhance its effectiveness. Fellows equip Goodwill peers across organizations to deploy the framework locally through virtual and in-person training supported by GII team members and external subject matter experts. By advancing adoption of the OA model, OA Fellows help transform best practices into common practices, ensuring equitable and consistently effective mission service delivery within their local Goodwill organizations and associations.</p>
 <br>
+<div class="oa-levels-box">
 <p>
 <span class="label e">E</span>&rarr;
 <b>OA Essentials: </b>At least one team member is currently participating or has completed the program.</p>
@@ -799,6 +819,7 @@ Should ensure core functions through existing staffing structures.</p>
 <p>
 <span class="label hf">HF</span>&rarr;
 <b>OA High Fidelity: </b>At least two team members are currently participating or have completed the program.</p>
+</div>
 <br>
 <p><b>Optional: </b>No limit on the number of OA Fellows per organization.</p>
 <br>
@@ -811,10 +832,12 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Building partnerships and using referral technology to connect individuals to support services.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Have a referral process and partnerships with community organizations that provide support services.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use Automated Referral Technology (ART) and have warm hand-off partnerships guided by regional needs data.</p>
 <br>
+</div>
 <p><b>Optional: </b>Choice of ART platform, data source, and types of partner organizations (must align with regional needs).</p>
 <br>
 <p><b>Success Tracking: </b>
@@ -829,10 +852,12 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Engaging employers using labor market data to co-create training and job placement strategies.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Establish referral partnerships with local employers that offer job opportunities</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use specific labor market data (e.g., Chmura, DOL) to develop partnerships for job placement and co-created training programs.</p>
 <br>
+</div>
 <p><b>Optional: </b>Choice of employer partners and LMI source.</p>
 <br>
 <p><b>Success Tracking: </b>
@@ -847,9 +872,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Collecting and analyzing data to measure KPIs and participant feedback throughout the journey.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Collect a short list of individual-level data fields using a case management system. Post-placement data collected at 30, 60, 90, and 180 days. Individual-level data must be submitted to GII monthly.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Collect a long list of individual-level data fields using CaseWorthy or a similar case management system. Post-placement data collected at 30, 60, 90, 180, and 365 days. Individual-level data must be submitted to GII monthly.</p>
+</div>
 <br>
 <p><b>Optional: </b>Choice of case management system (must be able to capture OA data). Forms can be paper or digital. Additional KPIs may be collected.</p>
 <br>
@@ -862,10 +889,12 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Promote mission services using diverse outreach methods and referral technologies.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not Required.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Use ART platforms, and referral partners to reach beneficiaries.</p>
 <br>
+</div>
 <p><b>Optional: </b>Choice of outreach methods and ART platforms.</p>
 <br>
 <p><b>Success Tracking: </b>Number of incoming referrals that lead to enrollment.</p>
@@ -877,9 +906,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Conduct intake services to meet with potential clients/job seekers, learn more about who they are and what services they are interested in at Goodwill. During the intake services, collect demographic, work and educational history and other personal information that determines eligibility.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Intake must align with short list of data fields.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Intake must align with long list of data fields.</p>
+</div>
 <br>
 <p><b>Optional: </b>Choice of intake form (paper or digital); additional data may be collected.</p>
 <br>
@@ -893,10 +924,12 @@ Should ensure core functions through existing staffing structures.</p>
 <div class="popup-scroll">
 <p><b>Definition: </b>Career coach or navigator selects assessments based on individual needs.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>At least one valid assessment completed by 100% of individuals served.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must use Northstar completed by 100% of individuals served.</p>
 <br>
+</div>
 <p><b>Optional: </b>Additional assessments may be used; meetings can be virtual or in-person.</p>
 <br>
 <p><b>Success Tracking: </b>
@@ -908,9 +941,11 @@ Should ensure core functions through existing staffing structures.</p>
 <hr>
 <p><b>Definition: </b>Holistic evaluation of participant needs across multiple domains including: financial capability, health care, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of individuals served must complete a needs assessment.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of individuals served must complete a needs assessment.</p>
+</div>
 <br>
 <p><b>Optional: </b>Choice of assessment tool.</p>
 <br>
@@ -920,10 +955,12 @@ Should ensure core functions through existing staffing structures.</p>
 <hr>
 <p><b>Definition: </b>Assess reading, writing, math, and English language proficiency levels for individuals.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Required for individuals without a diploma enrolling in occupational training.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Required for individuals without a diploma enrolling in occupational training.</p>
 <br>
+</div>
 <p><b>Optional: </b>Any valid and reliable assessment; may be provided directly or via referral.</p>
 <br>
 <p><b>Success Tracking: </b>Number of eligible individuals completing assessment.</p>
@@ -931,10 +968,12 @@ Should ensure core functions through existing staffing structures.</p>
 <hr>
 <p><b>Definition: </b>Evaluate interests and job skills to identify suitable career paths.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
 <br>
+</div>
 <p><b>Optional: </b>JOFI or other assessments may be used.</p>
 <br>
 <p><b>Success Tracking: </b></p>
@@ -946,9 +985,11 @@ Should ensure core functions through existing staffing structures.</p>
 <hr>
 <p><b>Definition: </b>Evaluate comfort and gaps in basic digital skills.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must complete any valid digital skills assessment.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must complete at least one Northstar assessment.</p>
+</div>
 <br>
 <p><b>Optional: </b>Other assessments may be used.</p>
 <br>
@@ -965,9 +1006,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Provide welcome materials and sessions explaining available services.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of individuals complete orientation prior to enrollment.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of individuals complete orientation prior to enrollment.</p>
+</div>
 <br>
 <p><b>Optional: </b>Format can be group or individual, virtual or in-person.</p>
 <br>
@@ -981,10 +1024,12 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>A personalized plan with SMART goals that define their career pathway, financial stability and other self-sufficiency goals.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>100% of participants complete an ICFP.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>100% of participants complete an ICFP.</p>
 <br>
+</div>
 <p><b>Optional: </b>Organizations may use the standard ICFP template or any other paper or digital form that meets the required criteria.</p>
 <br>
 <p><b>Success Tracking: </b>Number and percentage completing ICFP.</p>
@@ -997,9 +1042,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Provide support services to remove barriers to success including remedial education, financial capability, health care, mental health, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer resources aligned with individual needs.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer resources aligned with individual needs.</p>
+</div>
 <br>
 <p><b>Optional: </b>Services may be provided directly or via partners; additional supports like dental care, financial incentives may be included. </p>
 <br>
@@ -1013,9 +1060,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Guidance on personal finance management and planning.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer financial education.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer financial education.</p>
+</div>
 <br>
 <p><b>Optional: </b>Delivery method and curriculum. Provided directly or through partners.</p>
 <br>
@@ -1029,10 +1078,12 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Training in personal and interpersonal competencies for employment.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer foundational skills training.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer foundational skills training and include at least one course from the Skills to Succeed Academy curriculum.</p>
 <br>
+</div>
 <p><b>Optional: </b>Delivery method; aligned with employer feedback. Provided directly or through partners.</p>
 <br>
 <p><b>Success Tracking: </b></p>
@@ -1047,9 +1098,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Teach use of computers, software, and online tools for employment. </p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
+</div>
 <br>
 <p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners.</p>
 <br>
@@ -1063,9 +1116,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Training and certifications leading to industry-recognized credentials.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Offer occupational skills training aligned with local labor market demand. </p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Offer occupational skills training aligned with employer input and local labor market demand. Occupations must pay livable wages based in geographic areas. </p>
+</div>
 <br>
 <p><b>Optional: </b>Delivery method, training type, and credential; aligned with local demand. Provided directly or through partners.</p>
 <br>
@@ -1079,9 +1134,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Hands-on experiences to learn about different careers such as job shadowing, on-the-job training (OJT), learn-and-earn, internships, pre-apprenticeships, apprenticeships, job site tours, informational employment observations, and simulated environments using virtual reality (VR) headsets.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not required.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must offer career exploration activities.</p>
+</div>
 <br>
 <p><b>Optional: </b>Type of experience and delivery method; aligned with in-demand occupations. Provided directly or through partners.</p>
 <br>
@@ -1095,9 +1152,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Support with resumes, interviews, and job applications.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must include resume and interview prep.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must include resume and interview prep.</p>
+</div>
 <br>
 <p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners </p>
 <br>
@@ -1111,9 +1170,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Engage employers to identify job openings and create employment opportunities.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Must offer job placement assistance.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must engage employers and place individuals in jobs with livable wages, based on MIT Living Wage Calculator (livingwage.mit.edu).</p>
+</div>
 <br>
 <p><b>Optional: </b>Employer types aligned with local labor market.</p>
 <br>
@@ -1129,9 +1190,11 @@ Should ensure core functions through existing staffing structures.</p>
 `
 <p><b>Definition: </b>Ongoing support provided to individuals after job placement or training completion to help them retain employment and advance in their careers, including access to wraparound supports and skill-building aligned with their goals</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Follow-up at 30, 60, 90, and 180 days.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Follow-up at 30, 60, 90, 180, and 365 days.</p>
+</div>
 <br>
 <p><b>Optional: </b>Additional follow-up periods; use of verification tools such as employer confirmation, paystub or offer letter submission, platforms like The Work Number, etc. Offer financial incentives to retain employment.</p>
 <br>
@@ -1144,10 +1207,12 @@ Should ensure core functions through existing staffing structures.</p>
                 description: `
 <p><b>Definition: </b>Long-term engagement of individuals after program completion or job placement—extending beyond one year, through networking, mentorship, and/or leveraging alumni as teachers or teaching assistants.</p>
 <br>
+<div class="oa-levels-box">
 <p><span class="label e">E</span>&rarr; <b>OA Essentials: </b>Not required.</p>
 <br>
 <p><span class="label hf">HF</span>&rarr; <b>OA High Fidelity: </b>Must establish at least one method of alumni engagement.</p>
 <br>
+</div>
 <p><b>Optional: </b>Format and frequency of engagement.</p>
 <br>
 <p><b>Success Tracking: </b>Number participating in alumni engagement.</p>
