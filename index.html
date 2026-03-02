@@ -4,1301 +4,781 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OA Journey Map</title>
+    <!-- Official Goodwill brand font: Work Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ============================================================
+           GOODWILL BRAND COLOR PALETTE (Digital Brand Guidelines 2019)
+           ============================================================
+           Logo:            Bold Blue #194790 | Logo Black #231f20
+           Primary Strong:  Blue #1b75bc | Teal #00706d | Green #618c3d
+           Primary Accent:  Blue #3a95cd | Teal #04a39f | Green #87b64a
+           Secondary Strong: Gold #c1782b | Red #c04646 | Purple #8e5183
+           Secondary Accent: Gold #e89831 | Red #df4e51 | Purple #bb689c
+           Gray:  Light #e6e7e8 | Accent #bcbec0 | Strong #848689 | Text #51585a
+        */
+        :root {
+            --bold-blue:    #194790;
+            --logo-black:   #231f20;
+            --strong-blue:  #1b75bc;
+            --strong-teal:  #00706d;
+            --strong-green: #618c3d;
+            --strong-gold:  #c1782b;
+            --accent-blue:  #3a95cd;
+            --accent-teal:  #04a39f;
+            --accent-green: #87b64a;
+            --accent-gold:  #e89831;
+            --light-gray:   #e6e7e8;
+            --accent-gray:  #bcbec0;
+            --strong-gray:  #848689;
+            --text-gray:    #51585a;
+            --white:        #ffffff;
         }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
             font-family: 'Work Sans', sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
+            background: var(--light-gray);
+            color: var(--text-gray);
+            padding: 24px;
         }
 
+        /* CONTAINER */
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--white);
+            border-radius: 4px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(25,71,144,0.10);
             position: relative;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 200px,
-                rgba(0, 51, 102, 0.03) 200px,
-                rgba(0, 51, 102, 0.03) 400px
-            );
-            background-size: 400px 400px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .watermark-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
             overflow: hidden;
         }
 
+        /* DRAFT WATERMARK */
+        .watermark-pattern { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
         .draft-text {
             position: absolute;
+            font-family: 'Work Sans', sans-serif;
             font-size: 4em;
-            font-weight: bold;
-            color: rgba(0, 51, 102, 0.08);
+            font-weight: 800;
+            color: rgba(25,71,144,0.05);
             transform: rotate(-45deg);
             white-space: nowrap;
             user-select: none;
+            letter-spacing: 4px;
         }
 
-        .header-section,
-        .journey-row,
-        .legend {
-            position: relative;
-            z-index: 1;
-        }
-
+        /* HEADER */
         .header-section {
+            position: relative; z-index:1;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            padding-bottom: 22px;
+            border-bottom: 3px solid var(--light-gray);
+        }
+        .header-section img { width:90px; height:auto; margin:0 auto 14px; display:block; }
+        /* H1 in Bold Blue per brand — used for dominant typography */
+        .header-section h1 {
+            font-weight: 800;
+            font-size: 1.6em;
+            color: var(--bold-blue);
+            line-height: 1.25;
+            margin-bottom: 6px;
+        }
+        .header-section p { color: var(--strong-gray); font-size:0.88em; font-weight:500; }
+
+        /* LEGEND */
+        .legend { display:flex; justify-content:center; gap:20px; margin-top:12px; flex-wrap:wrap; }
+        .legend-item { display:flex; align-items:center; gap:7px; font-size:0.82em; font-weight:600; color:var(--text-gray); }
+        .legend-box  { width:28px; height:16px; border-radius:3px; }
+
+        /* PHASE ROWS */
+        .journey-row { position:relative; z-index:1; margin-bottom:10px; }
+
+        /* Connector between phases */
+        .connector { display:flex; flex-direction:column; align-items:center; height:26px; margin:0 auto 10px; }
+        .connector-line  { width:2px; height:10px; background:var(--accent-gray); }
+        .connector-arrow {
+            width:0; height:0;
+            border-left:10px solid transparent;
+            border-right:10px solid transparent;
+            border-top:13px solid var(--accent-gray);
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%,100% { opacity:.5; transform:translateY(0); }
+            50%     { opacity:1;  transform:translateY(2px); }
         }
 
-        .logo {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            display: block;
-            background: #003366;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-            text-align: center;
-            padding: 20px;
-            border: 3px solid #0066cc;
-        }
-
-        h1 {
-            color: #194790;
-            font-size: 1.8em;
-        }
-
-        .journey-row {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .flow-arrow {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 20px solid #0066cc;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: -30px;
-            z-index: 10;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
-            50% { opacity: 1; transform: translateX(-50%) translateY(-3px); }
-        }
-
-        .connection-line {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: #0066cc;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: -20px;
-            z-index: 5;
-        }
-
+        /* Phase headers — Strong colors per brand (used as bold backgrounds with white text) */
         .phase-header {
-            background: #1b75bc;
-            color: white;
-            padding: 12px;
+            color: var(--white);
+            padding: 11px 16px;
             text-align: center;
-            font-weight: bold;
-            font-size: 1.3em;
+            font-weight: 700;
+            font-size: 1em;
             border-radius: 4px 4px 0 0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
- .phase-header2 {
-            background: #00706d;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.3em;
-            border-radius: 4px 4px 0 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
- .phase-header3 {
-            background: #618c3d;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.3em;
-            border-radius: 4px 4px 0 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
- .phase-header4 {
-            background: #c1782b;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.3em;
-            border-radius: 4px 4px 0 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .phase-header.blue  { background: var(--strong-blue); }
+        .phase-header.teal  { background: var(--strong-teal); }
+        .phase-header.green { background: var(--strong-green); }
+        .phase-header.gold  { background: var(--strong-gold); }
 
+        /* Phase content backgrounds — Accent colors per brand guidelines */
         .phase-content {
-            background: #3a95cd;
-            padding: 20px;
+            padding: 18px;
             border-radius: 0 0 4px 4px;
-            border: 2px solid #003366;
+            border: 1px solid rgba(0,0,0,0.07);
             border-top: none;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
+            gap: 16px;
         }
-.phase-content2 {
-            background: #04a39f;
-            padding: 20px;
-            border-radius: 0 0 4px 4px;
-            border: 2px solid #003366;
-            border-top: none;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-.phase-content3 {
-            background: #87b64a;
-            padding: 20px;
-            border-radius: 0 0 4px 4px;
-            border: 2px solid #003366;
-            border-top: none;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-.phase-content4 {
-            background: #e89831;
-            padding: 20px;
-            border-radius: 0 0 4px 4px;
-            border: 2px solid #003366;
-            border-top: none;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .phase-content.blue  { background: var(--accent-blue); }
+        .phase-content.teal  { background: var(--accent-teal); }
+        .phase-content.green { background: var(--accent-green); }
+        .phase-content.gold  { background: var(--accent-gold); }
 
-
+        /* SERVICE CARDS */
         .service-box {
-            background: white;
-            border: 2px solid #0066cc;
-            border-radius: 6px;
-            padding: 15px;
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+            padding: 14px 12px 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            min-height: 140px;
+            min-height: 128px;
         }
-
         .service-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,102,204,0.3);
-            border-color: #004499;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(25,71,144,0.16);
+            border-color: var(--strong-blue);
         }
 
+        /* Number badge: Bold Blue (#194790) — logo color, used as strong accent */
         .service-number {
             position: absolute;
-            top: -15px;
-            left: 50%;
+            top: -14px; left: 50%;
             transform: translateX(-50%);
-            background: #0066cc;
-            color: white;
-            width: 36px;
-            height: 36px;
+            background: var(--bold-blue);
+            color: var(--white);
+            width: 30px; height: 30px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95em;
-            font-weight: bold;
-            border: 3px solid white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            display: flex; align-items:center; justify-content:center;
+            font-size: 0.82em;
+            font-weight: 700;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 6px rgba(25,71,144,0.3);
         }
 
-        .service-icon {
-            font-size: 2.5em;
-            margin-bottom: 8px;
-            margin-top: 12px;
-        }
+        .service-icon { font-size:2em; margin-top:14px; margin-bottom:6px; }
 
+        /* Service name: Text Gray — body text rule from brand guidelines */
         .service-name {
-            font-size: 1em;
-            color: #333;
+            font-size: 0.88em;
+            color: var(--text-gray);
             line-height: 1.3;
-            font-weight: 500;
+            font-weight: 600;
             flex: 1;
-            display: flex;
-            align-items: center;
+            display: flex; align-items:center; justify-content:center;
         }
 
-        .service-labels {
-            display: flex;
-            gap: 4px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .service-labels { display:flex; gap:4px; margin-top:8px; flex-wrap:wrap; justify-content:center; }
 
         .label {
-            font-size: 0.65em;
-            padding: 2px 6px;
+            font-size: 0.6em;
+            padding: 2px 7px;
             border-radius: 3px;
-            font-weight: bold;
+            font-weight: 700;
+            letter-spacing: .3px;
         }
+        /* Gold label uses #FFD700; Platinum uses Strong Gray */
+        .label.g { background: #FFD700; color: var(--logo-black); }
+        .label.p { background: var(--strong-gray); color: var(--white); }
 
-        .label.g {
-            background: #FFD700;
-            color: #000000;
-        }
+        .sub-items { font-size:.7em; color:var(--strong-gray); margin-top:5px; line-height:1.4; }
 
-        .label.P {
-            background: #818589;
-            color: #FFFFFF;
-        }
-
-        .label.arts {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
-        .sub-items {
-            font-size: 0.73em;
-            color: #666;
-            margin-top: 6px;
-        }
-
+        /* MODAL */
         .modal {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(25,71,144,0.55);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn .25s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
         .modal-content {
             position: relative;
-            background: white;
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideDown 0.3s ease;
+            background: var(--white);
+            max-width: 620px;
+            margin: 48px auto;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(25,71,144,0.25);
+            animation: slideDown .25s ease;
+            overflow: hidden;
+        }
+        @keyframes slideDown {
+            from { transform:translateY(-40px); opacity:0; }
+            to   { transform:translateY(0);     opacity:1; }
         }
 
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        /* Modal header: Strong Blue background, white text — brand compliant */
+        .modal-header {
+            background: var(--strong-blue);
+            padding: 16px 22px 14px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
         }
+        .modal-header h2 { color:var(--white); font-weight:700; font-size:1.02em; line-height:1.3; flex:1; }
 
         .close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
+            color: var(--white); font-size:22px; cursor:pointer;
+            opacity:.8; transition:opacity .2s; line-height:1;
+            flex-shrink:0; background:none; border:none; font-family:inherit;
         }
+        .close:hover { opacity:1; }
 
-        .close:hover {
-            color: #333;
+        .modal-body { padding:18px 22px 22px; }
+
+        /* Body text: Text Gray (#51585a) per brand guidelines */
+        .modal-body p { color:var(--text-gray); line-height:1.65; font-size:.91em; }
+
+        /* "Why Important": warm amber — uses Secondary Gold palette as accent */
+        .why-important-box {
+            background: #fff8ee;
+            border-left: 4px solid var(--strong-gold);
+            border-radius: 0 4px 4px 0;
+            padding: 11px 14px;
+            margin-bottom: 14px;
         }
-
-        .modal h2 {
-            color: #003366;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #0066cc;
+        .why-label {
+            font-weight: 700;
+            color: var(--strong-gold);
+            font-size: .73em;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-bottom: 5px;
         }
+        .why-important-box p { color:var(--text-gray); font-size:.9em; line-height:1.6; margin:0; }
 
-        .modal p {
-            color: #555;
-            line-height: 1.7;
+        /* OA levels box: Light Gray (#e6e7e8) per brand */
+        .oa-levels-box {
+            background: var(--light-gray);
+            border-radius: 4px;
+            padding: 11px 14px;
+            margin: 11px 0;
         }
+        .oa-levels-box p { margin:5px 0; font-size:.9em; }
 
-        .legend {
-            display: flex;
-            justify-content: right;
-            gap: 25px;
-            margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            flex-wrap: wrap;
-        }
+        .popup-scroll { max-height:62vh; overflow-y:auto; padding-right:4px; }
+        .popup-scroll hr { border:none; border-top:1px solid var(--light-gray); margin:10px 0; }
 
-        .legend-item {
-            display: flex;
-            align-items: right;
-text-align: right;
-            gap: 8px;
-            font-size: 0.85em;
-        }
+        /* Bold text in popup: Strong Blue — primary brand text color per guidelines */
+        .modal-body b { color: var(--strong-blue); }
 
-        .legend-box {
-            width: 30px;
-            height: 18px;
-text-align: right;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-        }
-
-        @media (max-width: 768px) {
-            .phase-content {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                margin: 50px 20px;
-                padding: 30px 20px;
-            }
-        }
-.oa-levels-box {
-border: px solid #194790;
-border-radius: 6px;
-padding: 12px 14px;
-margin: 16px 0;
-background-color: #e6e7e8;
-}
-
-.oa-levels-box p{
-margin: 6px 0;
-}
-
-.popup-scroll {
-max-height: 60vh;
-overflow-y: auto;
-padding-right: 8px;
-}
-
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .phase-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        @media (max-width:900px)  { .phase-content { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width:600px)  { .phase-content { grid-template-columns: 1fr; } .modal-content { margin:28px 14px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="watermark-pattern" id="watermark"></div>
-        <div class="header-section">
-            <!-- LOGO PLACEHOLDER: Replace the div below with an img tag -->
-            <img src="https://www.goodwill.org/wp-content/webp-express/webp-images/uploads/2019/06/cropped-Goodwill-Industries-International-Logo-1.jpg.webp" alt="Goodwill Industries International Logo" style="width: 100px; height: auto; margin: 0 auto 20px; display: block;">
-            
-            <h1>Goodwill Opportunity Accelerator® - Key Service Delivery Areas</h1>
-<br>
-<p><i>Click on the services below for more information.</i></p>
-<div class="legend">
-            <div class="legend-item">
-                <div class="legend-box" style="background: #FFD700;"></div>
-                <span><strong>G</strong> = OA Gold</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box" style="background: #818589;"></div>
-                <span><strong>P</strong> = OA Platinum</span>
-            </div>
-                   </div>
 
+        <!-- HEADER -->
+        <div class="header-section">
+            <img src="https://www.goodwill.org/wp-content/webp-express/webp-images/uploads/2019/06/cropped-Goodwill-Industries-International-Logo-1.jpg.webp" alt="Goodwill® Logo">
+            <h1>Goodwill Opportunity Accelerator®<br>Key Service Delivery Areas</h1>
+            <p><em>Click on any service area for details, including why it matters.</em></p>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box" style="background:#FFD700;border:1px solid #bcbec0;"></div>
+                    <span><strong>G</strong> = OA Gold (Essentials)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background:#848689;"></div>
+                    <span><strong>P</strong> = OA Platinum (High Fidelity)</span>
+                </div>
+            </div>
         </div>
 
-
-        <!-- ORG PREP Row -->
+        <!-- PHASE 1: ORGANIZATIONAL PREP — Strong Blue / Accent Blue -->
         <div class="journey-row">
-            <div class="connection-line"></div>
-            <div class="flow-arrow"></div>
-            <div class="phase-header">ORGANIZATIONAL PREP</div>
-            <div class="phase-content">
+            <div class="phase-header blue">Organizational Prep</div>
+            <div class="phase-content blue">
                 <div class="service-box" data-id="1">
                     <div class="service-number">1</div>
                     <div class="service-icon">👥</div>
                     <div class="service-name">Functionally Aligned Staffing Model</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="2">
                     <div class="service-number">2</div>
                     <div class="service-icon">🎓</div>
-                    <div class="service-name">Goodwill® Career Coach and Navigator Certificate</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Goodwill® Career Coach &amp; Navigator Certificate</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="3">
                     <div class="service-number">3</div>
                     <div class="service-icon">🌟</div>
-                    <div class="service-name">OA Fellows</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">OA Fellows Program</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="4">
                     <div class="service-number">4</div>
                     <div class="service-icon">🔗</div>
-                    <div class="service-name">Referral & Wraparound Integration</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Referral &amp; Wraparound Network Integration</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="5">
                     <div class="service-number">5</div>
                     <div class="service-icon">🤝</div>
-                    <div class="service-name">Employer Partnerships</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Employer Partnership Planning &amp; Outreach</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="6">
                     <div class="service-number">6</div>
                     <div class="service-icon">📊</div>
-                    <div class="service-name">Evaluating Impact & Metrics</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Evaluating Impact &amp; Metrics</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- ASSESS & PLAN Row -->
+        <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+        <!-- PHASE 2: ASSESS & PLAN — Strong Teal / Accent Teal -->
         <div class="journey-row">
-            <div class="connection-line"></div>
-            <div class="flow-arrow"></div>
-            <div class="phase-header2">ASSESS & PLAN</div>
-            <div class="phase-content2">
+            <div class="phase-header teal">Assess &amp; Plan</div>
+            <div class="phase-content teal">
                 <div class="service-box" data-id="7">
                     <div class="service-number">7</div>
                     <div class="service-icon">📢</div>
-                    <div class="service-name">Outreach/Recruitment</div>
-                    <div class="service-labels">
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Outreach / Recruitment</div>
+                    <div class="service-labels"><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="8">
                     <div class="service-number">8</div>
                     <div class="service-icon">📝</div>
-                    <div class="service-name">Registration/Intake</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>                     
-                    </div>
+                    <div class="service-name">Registration / Intake</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="9">
                     <div class="service-number">9</div>
                     <div class="service-icon">✅</div>
-                    <div class="service-name">Assessments</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
-                    <div class="sub-items">
-                        9A: Needs | 9B: Basic Education<br>
-                        9C: Career Readiness | 9D: Digital Skills
-                    </div>
+                    <div class="service-name">Assessment Selection</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
+                    <div class="sub-items">9A: Needs &nbsp;|&nbsp; 9B: Basic Education<br>9C: Career Readiness &nbsp;|&nbsp; 9D: Digital Skills</div>
                 </div>
-
                 <div class="service-box" data-id="10">
                     <div class="service-number">10</div>
                     <div class="service-icon">ℹ️</div>
                     <div class="service-name">Orientation</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-		<div class="service-box" data-id="11">
+                <div class="service-box" data-id="11">
                     <div class="service-number">11</div>
                     <div class="service-icon">📋</div>
-                    <div class="service-name">Individual Career and Financial Plan</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Individual Career &amp; Financial Plan (ICFP)</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- EQUIP & CONNECT Row -->
-        <div class="journey-row">
-            <div class="connection-line"></div>
-            <div class="flow-arrow"></div>
-            <div class="phase-header3">EQUIP & CONNECT</div>
-            <div class="phase-content3">
-                
+        <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
 
+        <!-- PHASE 3: EQUIP & CONNECT — Strong Green / Accent Green -->
+        <div class="journey-row">
+            <div class="phase-header green">Equip &amp; Connect</div>
+            <div class="phase-content green">
                 <div class="service-box" data-id="12">
                     <div class="service-number">12</div>
-                    <div class="service-icon">🚎</div>
+                    <div class="service-icon">🚌</div>
                     <div class="service-name">Wraparound Supports</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="13">
                     <div class="service-number">13</div>
                     <div class="service-icon">💲</div>
                     <div class="service-name">Financial Education</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="14">
                     <div class="service-number">14</div>
                     <div class="service-icon">📚</div>
-                    <div class="service-name">Foundational Skills</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Foundational Skills Training</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="15">
                     <div class="service-number">15</div>
                     <div class="service-icon">💻</div>
-                    <div class="service-name">Digital Skills</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Digital Skills Training</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-		<div class="service-box" data-id="16">
+                <div class="service-box" data-id="16">
                     <div class="service-number">16</div>
                     <div class="service-icon">🔧</div>
-                    <div class="service-name">Occupation-Specific Skills</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>                   
+                    <div class="service-name">Occupation-Specific Training</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="17">
                     <div class="service-number">17</div>
                     <div class="service-icon">🔍</div>
                     <div class="service-name">Career Exploration Opportunities</div>
-                    <div class="service-labels">                        
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="18">
                     <div class="service-number">18</div>
                     <div class="service-icon">👩‍💼</div>
-                    <div class="service-name">Job Search Prep</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Job Search / Prep Assistance</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
             </div>
         </div>
 
-        <!-- LAUNCH & EVALUATE Row -->
+        <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+        <!-- PHASE 4: LAUNCH & EVALUATE — Strong Gold / Accent Gold -->
         <div class="journey-row">
-            <div class="phase-header4">LAUNCH & EVALUATE</div>
-            <div class="phase-content4">
-                
+            <div class="phase-header gold">Launch &amp; Evaluate</div>
+            <div class="phase-content gold">
                 <div class="service-box" data-id="19">
                     <div class="service-number">19</div>
                     <div class="service-icon">💼</div>
                     <div class="service-name">Job Placement Assistance</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="20">
                     <div class="service-number">20</div>
                     <div class="service-icon">📈</div>
-                    <div class="service-name">Retention Services and Followup</div>
-                    <div class="service-labels">
-                        <span class="label g">G</span>
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-name">Retention Services &amp; Follow-Up</div>
+                    <div class="service-labels"><span class="label g">G</span><span class="label p">P</span></div>
                 </div>
-
                 <div class="service-box" data-id="21">
                     <div class="service-number">21</div>
                     <div class="service-icon">🏆</div>
                     <div class="service-name">Alumni Engagement</div>
-                    <div class="service-labels">
-                        <span class="label P">P</span>
-                    </div>
+                    <div class="service-labels"><span class="label p">P</span></div>
                 </div>
             </div>
         </div>
 
-        
-    </div>
+    </div><!-- /container -->
 
-    <div id="modal" class="modal">
+    <!-- MODAL -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-description"></p>
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-description"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Generate watermark pattern
-        const watermark = document.getElementById('watermark');
-        const containerHeight = document.querySelector('.container').offsetHeight;
-        const containerWidth = document.querySelector('.container').offsetWidth;
-       
-        const rows = Math.ceil(containerHeight / 200) + 2;
-        const cols = Math.ceil(containerWidth / 300) + 2;
-       
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                const draft = document.createElement('div');
-                draft.className = 'draft-text';
-                draft.textContent = 'DRAFT';
-                draft.style.top = (row * 200 - 100) + 'px';
-                draft.style.left = (col * 300 - 100) + 'px';
-                watermark.appendChild(draft);
+        /* WATERMARK */
+        (function(){
+            const el=document.getElementById('watermark');
+            const h=document.querySelector('.container').offsetHeight;
+            const w=document.querySelector('.container').offsetWidth;
+            for(let r=0;r<Math.ceil(h/180)+2;r++){
+                for(let c=0;c<Math.ceil(w/280)+2;c++){
+                    const d=document.createElement('div');
+                    d.className='draft-text'; d.textContent='DRAFT';
+                    d.style.top=(r*180-80)+'px'; d.style.left=(c*280-80)+'px';
+                    el.appendChild(d);
+                }
             }
+        })();
+
+        /* HELPERS */
+        function why(text){
+            return `<div class="why-important-box"><div class="why-label">&#11088; Why is this important?</div><p>${text}</p></div>`;
+        }
+        function lvls(gold,plat){
+            return `<div class="oa-levels-box">
+                <p><span class="label g">G</span>&nbsp;&rarr;&nbsp;<b>OA Gold:</b> ${gold}</p><br>
+                <p><span class="label p">P</span>&nbsp;&rarr;&nbsp;<b>OA Platinum:</b> ${plat}</p>
+            </div>`;
+        }
+        function row(label,val){
+            return `<p style="margin:6px 0;font-size:.9em;"><b>${label}</b> ${val}</p>`;
         }
 
-        const definitions = {
-            1: {
-                title: "1. Functionally Aligned Staffing Model",
-                description:
-`
-<div class="popup-scroll">
-<p><b>Definition: </b> The organization must demonstrate through its staffing model that core functions are aligned with OA best practices—meaning staff are organized into distinct functional groups, ensuring that core functions are covered for a specific area of OA service delivery.</p>
-<br>
-<div class="oa-levels-box">
-<p> 
-<span class="label g">G</span>&rarr; 
-<b>OA Gold: </b>
-Should ensure core functions through existing staffing structures.</p>
-<br>
-<p>
-<span class="label P">P</span>&rarr; 
-<b>OA Platinum: </b>The following distinct functional areas must be assigned to a role:
-<p><i>- Career Navigator(s) –</i> Provides direct, individualized support to participants.</p>
-<p><i>- Trainer(s) –</i> Delivers skills training aligned with career pathways. Functions may be covered by partner staff.</p>
-<p><i>- Business Engagement Staff –</i> Builds and maintains employer partnerships.</p>
-<p><i>- Mission Leader(s) –</i> Oversees operations and leads the functional teams.</p>
-<p><i>- Data Specialist(s) –</i> Ensures data accuracy, completeness, and alignment with reporting needs.</p>
-</p>
-</div>
-<br>
-<p><b>Optional:</b>
-<p><i>- Community Engagement Team Member(s) –</i> Engages community partners to support OA resource needs.</p>
-</p>
-<br>
-<p><b>Success Tracking: </b>Organizations will identify each role and functions.</p>
-<br>
-<p><b>Verification: </b>Org chart and job description.</p>
-</div>
-`
+        /* CONTENT */
+        const defs = {
+            1:{
+                title:"1. Functionally Aligned Staffing Model",
+                html:`<div class="popup-scroll">
+${why("When staff specialize in defined roles rather than wearing multiple hats, quality improves at every touchpoint. Participants get seamless, coordinated support, and the organization builds scalable capacity instead of depending on generalists stretched too thin.")}
+${row("Definition:","The organization must demonstrate through its staffing model that core functions are aligned with OA best practices — staff are organized into distinct functional groups, each covering a specific area of OA service delivery.")}
+${lvls("Should ensure core functions through existing staffing structures.","The following distinct functional areas must each be assigned to a role: Career Navigator(s), Trainer(s), Business Engagement Staff, Mission Leader(s), and Data Specialist(s).")}
+${row("Optional:","Community Engagement Team Member(s) — engages community partners to support OA resource needs.")}
+${row("Success Tracking:","Organizations will identify each role and functions.")}
+${row("Verification:","Org chart and job descriptions.")}
+</div>`
             },
-            2: {
-                title: "2. Goodwill® Career Coach and Navigator Certificate",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Goodwill® Career Navigator and Coach Professional Certificate for team members providing coaching and career navigation services, which includes intensive, collaborative support to help clients identify and address employment barriers.</p>
-<br>
-<div class="oa-levels-box">
-<p>
-<span class="label g">G</span>&rarr;
-<b>OA Gold: </b>At least 50% of team members providing these services are certified within their first year of OA Adoption</p>
-<br>
-<p>
-<span class="label P">P</span>&rarr;
-<b>OA Platinum: </b>100% of team members providing these services are certified within their first year of OA Adoption.</p>
-</div>
-<br>
-<p><b>Optional: </b>Any mission team member—not just those in coaching roles—may complete the training.</p>
-<br>
-<p><b>Success Tracking: </b>Number and percentage of trained career navigators.</p>
-</div>
-`
+            2:{
+                title:"2. Goodwill® Career Coach and Navigator Certificate",
+                html:`<div class="popup-scroll">
+${why("Participants' outcomes depend directly on navigator skill. Certified navigators are better equipped to identify barriers, build trust, and create individualized pathways — untrained staff risk inconsistent guidance at a critical moment in a participant's life.")}
+${row("Definition:","Goodwill® Career Navigator and Coach Professional Certificate for team members providing coaching and career navigation services, which includes intensive, collaborative support to help clients identify and address employment barriers.")}
+${lvls("At least 50% of team members providing these services are certified within their first year of OA Adoption.","100% of team members providing these services are certified within their first year of OA Adoption.")}
+${row("Optional:","Any mission team member — not just those in coaching roles — may complete the training.")}
+${row("Success Tracking:","Number and percentage of trained career navigators.")}
+</div>`
             },
-            3: {
-                title: "3. OA Fellows",
-                description:
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Leadership development through participation in the OA Fellows program. OA Fellows are ambassadors for the Opportunity Accelerator (OA) initiative. They are trained to understand the OA framework, applying and testing tools and resources to enhance its effectiveness. Fellows equip Goodwill peers across organizations to deploy the framework locally through virtual and in-person training supported by GII team members and external subject matter experts. By advancing adoption of the OA model, OA Fellows help transform best practices into common practices, ensuring equitable and consistently effective mission service delivery within their local Goodwill organizations and associations.</p>
-<br>
-<div class="oa-levels-box">
-<p>
-<span class="label g">G</span>&rarr;
-<b>OA Gold: </b>At least one team member is currently participating or has completed the program.</p>
-<br>
-<p>
-<span class="label P">P</span>&rarr;
-<b>OA Platinum: </b>At least two team members are currently participating or have completed the program.</p>
-</div>
-<br>
-<p><b>Optional: </b>No limit on the number of OA Fellows per organization.</p>
-<br>
-<p><b>Success Tracking: </b>Number of OA Fellows.</p>
-</div>
-`
+            3:{
+                title:"3. OA Fellows Program",
+                html:`<div class="popup-scroll">
+${why("Fellows become internal champions who translate OA requirements into action, mentor staff, and accelerate adoption across the organization. The investment in one Fellow creates a multiplier effect — improving team performance, staff morale, and the organization's ability to move toward High Fidelity.")}
+${row("Definition:","Leadership development through participation in the OA Fellows program. OA Fellows are ambassadors for the OA initiative, trained to understand the framework and equip Goodwill peers to deploy it locally.")}
+${lvls("At least one team member is currently participating or has completed the program.","At least two team members are currently participating or have completed the program.")}
+${row("Optional:","No limit on the number of OA Fellows per organization.")}
+${row("Success Tracking:","Number of OA Fellows.")}
+</div>`
             },
-            4: {
-                title: "4. Referral & Wraparound Integration",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Building partnerships and using referral technology to connect individuals to support services.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Have a referral process and partnerships with community organizations that provide support services.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Use Automated Referral Technology (ART) and have warm hand-off partnerships guided by regional needs data.</p>
-<br>
-</div>
-<p><b>Optional: </b>Choice of ART platform, data source, and types of partner organizations (must align with regional needs).</p>
-<br>
-<p><b>Success Tracking: </b>
-<p>- Number of closed loop ART referrals</p>
-<p>- Number of partnerships with wrap-around support organizations</p>
-</p>
-</div>
-`
+            4:{
+                title:"4. Referral & Wraparound Network Integration",
+                html:`<div class="popup-scroll">
+${why("Employment barriers rarely exist in isolation. A structured referral network ensures participants are connected to housing, healthcare, transportation, and other supports before those barriers become insurmountable obstacles to employment success.")}
+${row("Definition:","Building partnerships and using referral technology to connect individuals to support services.")}
+${lvls("Have a referral process and partnerships with community organizations that provide support services.","Use Automated Referral Technology (ART) and have warm hand-off partnerships guided by regional needs data.")}
+${row("Optional:","Choice of ART platform, data source, and types of partner organizations (must align with regional needs).")}
+${row("Success Tracking:","Number of closed-loop ART referrals; number of partnerships with wrap-around support organizations.")}
+</div>`
             },
-            5: {
-                title: "5. Employer Partnerships",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Engaging employers using labor market data to co-create training and job placement strategies.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Establish referral partnerships with local employers that offer job opportunities</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Use specific labor market data (e.g., Chmura, DOL) to develop partnerships for job placement and co-created training programs.</p>
-<br>
-</div>
-<p><b>Optional: </b>Choice of employer partners and LMI source.</p>
-<br>
-<p><b>Success Tracking: </b>
-<p>- Number of employer partnerships</p>
-<p>- Number of employer referrals (outgoing)</p>
-</p>
-</div>
-`
+            5:{
+                title:"5. Employer Partnership Planning & Outreach",
+                html:`<div class="popup-scroll">
+${why("Training without a clear pathway to real jobs is wasted investment. Strategic, data-informed employer partnerships create direct pipelines to in-demand opportunities, ensure training aligns with actual skill needs, and improve both placement rates and wage outcomes.")}
+${row("Definition:","Engaging employers using labor market data to co-create training and job placement strategies.")}
+${lvls("Establish referral partnerships with local employers that offer job opportunities.","Use specific labor market data (e.g., Chmura, DOL) to develop partnerships for job placement and co-created training programs.")}
+${row("Optional:","Choice of employer partners and LMI source.")}
+${row("Success Tracking:","Number of employer partnerships; number of employer referrals (outgoing).")}
+</div>`
             },
-            6: {
-                title: "6. Evaluating Impact & Metrics",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Collecting and analyzing data to measure KPIs and participant feedback throughout the journey.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Collect a short list of individual-level data fields using a case management system. Post-placement data collected at 30, 60, 90, and 180 days. Individual-level data must be submitted to GII monthly.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Collect a long list of individual-level data fields using CaseWorthy or a similar case management system. Post-placement data collected at 30, 60, 90, 180, and 365 days. Individual-level data must be submitted to GII monthly.</p>
-</div>
-<br>
-<p><b>Optional: </b>Choice of case management system (must be able to capture OA data). Forms can be paper or digital. Additional KPIs may be collected.</p>
-<br>
-<p><b>Success Tracking: </b>KPI data and standardized participant feedback at intake, goal completion, placement, and post-placement intervals.</p>
-</div>
-`
+            6:{
+                title:"6. Evaluating Impact and Metrics",
+                html:`<div class="popup-scroll">
+${why("Without consistent data, organizations cannot identify what's working, course-correct quickly, or demonstrate impact to funders. Data transforms reactive problem-solving into proactive service design and turns participant outcomes into compelling evidence of return on investment.")}
+${row("Definition:","Collecting and analyzing data to measure KPIs and participant feedback throughout the journey.")}
+${lvls("Collect a short list of individual-level KPIs using a case management system. Post-placement data collected at 30, 60, 90, and 180 days. Individual-level data must be submitted to GII monthly.","Collect a long list of individual-level KPIs using CaseWorthy or a similar system. Post-placement data collected at 30, 60, 90, 180, and 365 days. Individual-level data must be submitted to GII monthly.")}
+${row("Optional:","Choice of case management system (must capture OA data). Forms can be paper or digital. Additional KPIs may be collected.")}
+${row("Success Tracking:","KPI data and standardized participant feedback at intake, goal completion, placement, and post-placement intervals.")}
+</div>`
             },
-            7: {
-                title: "7. Outreach/Recruitment",
-                description:
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Promote mission services using diverse outreach methods and referral technologies.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Not Required.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Use ART platforms, and referral partners to reach beneficiaries.</p>
-<br>
-</div>
-<p><b>Optional: </b>Choice of outreach methods and ART platforms.</p>
-<br>
-<p><b>Success Tracking: </b>Number of incoming referrals that lead to enrollment.</p>
-</div>
-`
+            7:{
+                title:"7. Outreach / Recruitment",
+                html:`<div class="popup-scroll">
+${why("Passive recruitment only reaches people who already know where to look. Intentional outreach — especially using ART platforms — ensures services reach individuals facing the greatest employment barriers, including those who distrust formal systems or don't know help exists.")}
+${row("Definition:","Promote mission services using diverse outreach methods and referral technologies.")}
+${lvls("Not required.","Use ART platforms and referral partners to reach beneficiaries.")}
+${row("Optional:","Choice of outreach methods and ART platforms.")}
+${row("Success Tracking:","Number of incoming referrals that lead to enrollment.")}
+</div>`
             },
-            8: {
-                title: "8. Registration/Intake",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Conduct intake services to meet with potential clients/job seekers, learn more about who they are and what services they are interested in at Goodwill. During the intake services, collect demographic, work and educational history and other personal information that determines eligibility.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Intake must align with short list of data fields.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Intake must align with long list of data fields.</p>
-</div>
-<br>
-<p><b>Optional: </b>Choice of intake form (paper or digital); additional data may be collected.</p>
-<br>
-<p><b>Success Tracking: </b>Number of individuals completing intake.</p>
-</div>
-`
+            8:{
+                title:"8. Registration / Intake",
+                html:`<div class="popup-scroll">
+${why("Intake is more than paperwork — it's the foundation for every service decision that follows. Quality intake data informs eligibility, reveals barriers, and builds the relationship that will carry participants through their entire career pathway.")}
+${row("Definition:","Conduct intake services to meet with potential clients/job seekers, learn more about who they are, and collect demographic, work and educational history, and other personal information that determines eligibility.")}
+${lvls("Intake must align with the short list of KPIs.","Intake must align with the long list of KPIs.")}
+${row("Optional:","Choice of intake form (paper or digital); additional data may be collected.")}
+${row("Success Tracking:","Number of individuals completing intake.")}
+</div>`
             },
-            9: {
-                title: "9. Assessments",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Career coach or navigator selects assessments based on individual needs.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>At least one valid assessment completed by 100% of individuals served.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must use Northstar completed by 100% of individuals served.</p>
-<br>
-</div>
-<p><b>Optional: </b>Additional assessments may be used; meetings can be virtual or in-person.</p>
-<br>
-<p><b>Success Tracking: </b>
-<p>- Number and percentage completing assessments</p>
-<p>- Number and percentage completing Northstar assessments</p>
-</p>
-<br>
-<p><b>9a. Needs Assessment</b><p>
-<hr>
-<p><b>Definition: </b>Holistic evaluation of participant needs across multiple domains including: financial capability, health care, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>100% of individuals served must complete a needs assessment.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>100% of individuals served must complete a needs assessment.</p>
-</div>
-<br>
-<p><b>Optional: </b>Choice of assessment tool.</p>
-<br>
-<p><b>Success Tracking: </b>Number and percentage completing needs assessment.</p>
-<br>
-<p><b>9b. Basic Education Assessment</b><p>
-<hr>
-<p><b>Definition: </b>Assess reading, writing, math, and English language proficiency levels for individuals.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Required for individuals without a diploma enrolling in occupational training.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Required for individuals without a diploma enrolling in occupational training.</p>
-<br>
-</div>
-<p><b>Optional: </b>Any valid and reliable assessment; may be provided directly or via referral.</p>
-<br>
-<p><b>Success Tracking: </b>Number of eligible individuals completing assessment.</p>
-<br><p><b>9c. Career Readiness Assessment</b><p>
-<hr>
-<p><b>Definition: </b>Evaluate interests and job skills to identify suitable career paths.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must complete a valid and reliable career readiness/interest assessment.</p>
-<br>
-</div>
-<p><b>Optional: </b>JOFI or other assessments may be used.</p>
-<br>
-<p><b>Success Tracking: </b></p>
-<p>- Number and percentage completing career readiness/interest assessments</p>
-<p>- Number completing JOFI assessments</p>
+            9:{
+                title:"9. Assessment Selection",
+                html:`<div class="popup-scroll">
+${why("Assessments transform generalized support into personalized strategy. By identifying exactly where a participant is in their educational, digital, and career readiness journey, Career Navigators can sequence services appropriately and avoid placing people in training or employment they're not yet prepared for.")}
+${row("Definition:","Career coach or navigator selects assessments based on individual needs.")}
+${lvls("At least one valid assessment completed by 100% of individuals served.","Must use Northstar Digital Literacy assessment, completed by 100% of individuals served.")}
+${row("Optional:","Additional assessments may be used; meetings can be virtual or in-person.")}
+${row("Success Tracking:","Number and percentage completing assessments; number and percentage completing Northstar assessments.")}
 
-<br>
-<p><b>9d. Digital Skills Assessment</b><p>
-<hr>
-<p><b>Definition: </b>Evaluate comfort and gaps in basic digital skills.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must complete any valid digital skills assessment.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must complete at least one Northstar assessment.</p>
-</div>
-<br>
-<p><b>Optional: </b>Other assessments may be used.</p>
-<br>
-<p><b>Success Tracking: </b></p>
-<p>- Number and percentage completing digital skills assessments</p>
-<p>- Number and percentage completing Northstar assessments</p>
-<br>
-</div>
-`
-            },
-            10: {
-                title: "10. Orientation",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Provide welcome materials and sessions explaining available services.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>100% of individuals complete orientation prior to enrollment.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>100% of individuals complete orientation prior to enrollment.</p>
-</div>
-<br>
-<p><b>Optional: </b>Format can be group or individual, virtual or in-person.</p>
-<br>
-<p><b>Success Tracking: </b>Number and percentage completing orientation.</p>
-</div>
-`
+<br><p><b>9a. Needs Assessment</b></p><hr>
+${why("Understanding the full picture of a participant's life — health, housing, finances, family, legal — ensures wrap-around services are targeted where they're actually needed. Without this, critical barriers go unaddressed and undermine even the most motivated participant's progress.")}
+${row("Definition:","Holistic evaluation across: financial capability, health care, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.")}
+${lvls("100% of individuals served must complete a needs assessment.","100% of individuals served must complete a needs assessment.")}
+${row("Optional:","Choice of assessment tool.")}
 
-            },
-            11: {
-                title: "11. Individual Career and Financial Plan (ICFP)",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>A personalized plan with SMART goals that define their career pathway, financial stability and other self-sufficiency goals.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>100% of participants complete an ICFP.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>100% of participants complete an ICFP.</p>
-<br>
-</div>
-<p><b>Optional: </b>Organizations may use the standard ICFP template or any other paper or digital form that meets the required criteria.</p>
-<br>
-<p><b>Success Tracking: </b>Number and percentage completing ICFP.</p>
-</div>
-`
+<br><p><b>9b. Basic Education Assessment</b></p><hr>
+${why("Enrolling participants in occupational training before they have the reading, math, or language skills to succeed sets them up for frustration and failure. This assessment prevents that mismatch and opens the door to appropriate foundational education first.")}
+${row("Definition:","Assess reading, writing, math, and English language proficiency levels for individuals.")}
+${lvls("Required for individuals without a diploma enrolling in occupational training.","Required for individuals without a diploma enrolling in occupational training.")}
+${row("Optional:","Any valid and reliable assessment; may be provided directly or via referral.")}
 
-            },
-            12: {
-                title: "12. Wraparound Supports",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Provide support services to remove barriers to success including remedial education, financial capability, health care, mental health, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must offer resources aligned with individual needs.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must offer resources aligned with individual needs.</p>
-</div>
-<br>
-<p><b>Optional: </b>Services may be provided directly or via partners; additional supports like dental care, financial incentives may be included. </p>
-<br>
-<p><b>Success Tracking: </b>Number of individuals receiving at least one wrap-around support.</p>
-</div>
-`
+<br><p><b>9c. Career Readiness / Interest Assessment</b></p><hr>
+${why("Technical skills alone don't predict employment success. Understanding a participant's soft skills, work habits, interests, and career fit allows navigators to build plans grounded in both aptitude and motivation — key predictors of long-term retention.")}
+${row("Definition:","Evaluate interests and job skills to identify suitable career paths.")}
+${lvls("Must complete a valid and reliable career readiness/interest assessment.","Must complete a valid and reliable career readiness/interest assessment.")}
+${row("Optional:","JOFI or other assessments may be used.")}
 
+<br><p><b>9d. Digital Skills Assessment</b></p><hr>
+${why("Digital competency is now a baseline requirement for nearly every job. Assessing where participants actually are — rather than assuming — ensures digital skills training starts at the right level and closes the specific gaps standing between them and employment.")}
+${row("Definition:","Evaluate comfort and gaps in basic digital skills.")}
+${lvls("Must complete any valid digital skills assessment.","Must complete at least one Northstar assessment.")}
+${row("Optional:","Other assessments may be used.")}
+</div>`
             },
-            13: {
-                title: "13. Financial Education",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Guidance on personal finance management and planning.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must offer financial education.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must offer financial education.</p>
-</div>
-<br>
-<p><b>Optional: </b>Delivery method and curriculum. Provided directly or through partners.</p>
-<br>
-<p><b>Success Tracking: </b>Number completing one financial education course.</p>
-</div>
-`
-
+            10:{
+                title:"10. Orientation",
+                html:`<div class="popup-scroll">
+${why("Participants who understand what services are available, what's expected of them, and how the process works are far more likely to engage fully and persist through challenges. Orientation turns a passive sign-up into an informed, committed partnership.")}
+${row("Definition:","Provide welcome materials and sessions explaining available services.")}
+${lvls("100% of individuals complete orientation prior to enrollment.","100% of individuals complete orientation prior to enrollment.")}
+${row("Optional:","Format can be group or individual, virtual or in-person.")}
+${row("Success Tracking:","Number and percentage completing orientation.")}
+</div>`
             },
-            14: {
-                title: "14. Foundational Skills",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Training in personal and interpersonal competencies for employment.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must offer foundational skills training.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must offer foundational skills training and include at least one course from the Skills to Succeed Academy curriculum.</p>
-<br>
-</div>
-<p><b>Optional: </b>Delivery method; aligned with employer feedback. Provided directly or through partners.</p>
-<br>
-<p><b>Success Tracking: </b></p>
-<p>- Number completing at least one foundational skills course.</p>
-<p>- Number of individuals completing at least one Skills to Succeed course</p>
-</div>
-`
-
+            11:{
+                title:"11. Individual Career and Financial Plan (ICFP)",
+                html:`<div class="popup-scroll">
+${why("Without a written plan, services become reactive and disconnected. The ICFP ties every training enrollment, support referral, and job placement back to the participant's own goals — ensuring services are individualized, intentional, and building toward real self-sufficiency.")}
+${row("Definition:","A personalized plan with SMART goals that define the participant's career pathway, financial stability, and other self-sufficiency goals.")}
+${lvls("100% of participants complete an ICFP.","100% of participants complete an ICFP.")}
+${row("Optional:","Organizations may use the standard ICFP template or any other paper or digital form that meets the required criteria.")}
+${row("Success Tracking:","Number and percentage completing ICFP.")}
+</div>`
             },
-            15: {
-                title: "15. Digital Skills",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Teach use of computers, software, and online tools for employment. </p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>If digital skills training is offered it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.</p>
-</div>
-<br>
-<p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners.</p>
-<br>
-<p><b>Success Tracking: </b>Number completing one digital skills course.</p>
-</div>
-`
-
+            12:{
+                title:"12. Wraparound Supports",
+                html:`<div class="popup-scroll">
+${why("Participants cannot focus on career development while struggling with homelessness, food insecurity, or untreated health conditions. Wrap-around services create the life stability that makes employment goals achievable — and sustainable once reached.")}
+${row("Definition:","Provide support services to remove barriers to success including remedial education, financial capability, health care, mental health, food security, housing stability, transportation, legal issues, family care (adult and child), and clothing needed for employment.")}
+${lvls("Must offer resources aligned with individual needs.","Must offer resources aligned with individual needs.")}
+${row("Optional:","Services may be provided directly or via partners; additional supports like dental care or financial incentives may be included.")}
+${row("Success Tracking:","Number of individuals receiving at least one wrap-around support.")}
+</div>`
             },
-            16: {
-                title: "16. Occupation-Specific Skills",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Training and certifications leading to industry-recognized credentials.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Offer occupational skills training aligned with local labor market demand. </p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Offer occupational skills training aligned with employer input and local labor market demand. Occupations must pay livable wages based in geographic areas. </p>
-</div>
-<br>
-<p><b>Optional: </b>Delivery method, training type, and credential; aligned with local demand. Provided directly or through partners.</p>
-<br>
-<p><b>Success Tracking: </b>Number completing training or receiving credentials.</p>
-</div>
-`
-
+            13:{
+                title:"13. Financial Education",
+                html:`<div class="popup-scroll">
+${why("Getting a job doesn't guarantee economic stability. Without money management skills, participants can earn a living wage and still spiral into crisis. Financial education ensures employment translates into lasting security — not just temporary relief.")}
+${row("Definition:","Guidance on personal finance management and planning.")}
+${lvls("Must offer financial education.","Must offer financial education.")}
+${row("Optional:","Delivery method and curriculum. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing at least one financial education course.")}
+</div>`
             },
-            17: {
-                title: "17. Career Exploration Opportunities",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Hands-on experiences to learn about different careers such as job shadowing, on-the-job training (OJT), learn-and-earn, internships, pre-apprenticeships, apprenticeships, job site tours, informational employment observations, and simulated environments using virtual reality (VR) headsets.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Not required.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must offer career exploration activities.</p>
-</div>
-<br>
-<p><b>Optional: </b>Type of experience and delivery method; aligned with in-demand occupations. Provided directly or through partners.</p>
-<br>
-<p><b>Success Tracking: </b>Number completing career exploration activities.</p>
-</div>
-`
-
+            14:{
+                title:"14. Foundational Skills Training",
+                html:`<div class="popup-scroll">
+${why("Employers consistently report that new hires struggle not with technical tasks, but with showing up reliably, communicating professionally, and working collaboratively. Foundational skills training closes this gap and determines whether job placements stick or end in rapid turnover.")}
+${row("Definition:","Training on personal and interpersonal competencies for employment.")}
+${lvls("Must offer foundational skills training.","Must offer foundational skills training and include at least one course from the Skills to Succeed Academy curriculum.")}
+${row("Optional:","Delivery method; aligned with employer feedback. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing at least one foundational skills course; number completing at least one Skills to Succeed Academy course.")}
+</div>`
             },
-            18: {
-                title: "18. Job Search Prep",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Support with resumes, interviews, and job applications.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must include resume and interview prep.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must include resume and interview prep.</p>
-</div>
-<br>
-<p><b>Optional: </b>Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners </p>
-<br>
-<p><b>Success Tracking: </b>Number completing job search/prep assistance.</p>
-</div>
-`
-
+            15:{
+                title:"15. Digital Skills Training",
+                html:`<div class="popup-scroll">
+${why("Nearly every workplace now requires some level of digital competency. Without these skills, participants face immediate disadvantage in job search, training access, and on-the-job performance. Structured training through the GDCA framework ensures skills are built progressively and aligned with real career pathways.")}
+${row("Definition:","Teach use of computers, software, and online tools for employment.")}
+${lvls("If digital skills training is offered, it must follow the Goodwill Digital Career Accelerator® (GDCA) framework, tailored to both employer skill demand and individual participant needs.","If digital skills training is offered, it must follow the GDCA framework, tailored to both employer skill demand and individual participant needs.")}
+${row("Optional:","Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing at least one digital skills course.")}
+</div>`
             },
-            19: {
-                title: "19. Job Placement Assistance",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Engage employers to identify job openings and create employment opportunities.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Must offer job placement assistance.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must engage employers and place individuals in jobs with livable wages, based on MIT Living Wage Calculator (livingwage.mit.edu).</p>
-</div>
-<br>
-<p><b>Optional: </b>Employer types aligned with local labor market.</p>
-<br>
-<p><b>Success Tracking: </b></p>
-<p>- Number receiving placement assistance</p>
-<p>- Number placed in jobs</p>
-</div>
-`
-
+            16:{
+                title:"16. Occupation-Specific Training",
+                html:`<div class="popup-scroll">
+${why("This is where career aspirations become concrete, employer-valued skills. Aligning training with local labor market demand — and focusing on living wage occupations — ensures participants aren't just completing credentials, but entering fields where they can actually achieve economic mobility.")}
+${row("Definition:","Training and certifications leading to industry-recognized credentials.")}
+${lvls("Offer occupational skills training aligned with local labor market demand.","Offer occupational skills training aligned with employer input and local labor market demand. Occupations must pay livable wages based on geographic area.")}
+${row("Optional:","Delivery method, training type, and credential; aligned with local demand. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing training or receiving industry-recognized credentials.")}
+</div>`
             },
-            20: {
-                title: "20. Retention Services and Followup",
-                description: 
-`
-<div class="popup-scroll">
-<p><b>Definition: </b>Ongoing support provided to individuals after job placement or training completion to help them retain employment and advance in their careers, including access to wraparound supports and skill-building aligned with their goals</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Follow-up at 30, 60, 90, and 180 days.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Follow-up at 30, 60, 90, 180, and 365 days.</p>
-</div>
-<br>
-<p><b>Optional: </b>Additional follow-up periods; use of verification tools such as employer confirmation, paystub or offer letter submission, platforms like The Work Number, etc. Offer financial incentives to retain employment.</p>
-<br>
-<p><b>Success Tracking: </b>Number retained at each interval (30, 60, 90, 180, 365 days)</p>
-</div>
-`
-
+            17:{
+                title:"17. Career Exploration Opportunities",
+                html:`<div class="popup-scroll">
+${why("Experiencing a career is fundamentally different from reading about it. Exploration prevents costly training dropouts by helping participants confirm their interest — or rule out a poor fit — before committing months to a program. Those who explore first enter training with realistic expectations and stronger commitment.")}
+${row("Definition:","Hands-on experiences such as job shadowing, OJT, learn-and-earn, internships, pre-apprenticeships, apprenticeships, job site tours, informational employment observations, and simulated environments using VR headsets.")}
+${lvls("Not required.","Must offer career exploration activities.")}
+${row("Optional:","Type of experience and delivery method; aligned with in-demand occupations. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing career exploration activities.")}
+</div>`
             },
-            21: {
-                title: "21. Alumni Engagement",
-                description: `
-<div class="popup-scroll">
-<p><b>Definition: </b>Long-term engagement of individuals after program completion or job placement—extending beyond one year, through networking, mentorship, and/or leveraging alumni as teachers or teaching assistants.</p>
-<br>
-<div class="oa-levels-box">
-<p><span class="label g">G</span>&rarr; <b>OA Gold: </b>Not required.</p>
-<br>
-<p><span class="label P">P</span>&rarr; <b>OA Platinum: </b>Must establish at least one method of alumni engagement.</p>
-<br>
-</div>
-<p><b>Optional: </b>Format and frequency of engagement.</p>
-<br>
-<p><b>Success Tracking: </b>Number participating in alumni engagement.</p>
-</div>
-`
-
+            18:{
+                title:"18. Job Search / Prep Assistance",
+                html:`<div class="popup-scroll">
+${why("Even well-trained participants can fail to secure employment if they can't navigate modern hiring processes. Resume gaps, applicant tracking systems, digital applications, and disclosure of background challenges all require strategic coaching that transforms training completion into actual job offers.")}
+${row("Definition:","Support with resumes, interviews, and job applications.")}
+${lvls("Must include resume and interview prep.","Must include resume and interview prep.")}
+${row("Optional:","Delivery method (in-person, virtual), curriculum, and training type. Provided directly or through partners.")}
+${row("Success Tracking:","Number completing job search/prep assistance.")}
+</div>`
+            },
+            19:{
+                title:"19. Job Placement Assistance",
+                html:`<div class="popup-scroll">
+${why("Placement assistance closes the loop between training and employment. Direct employer engagement — especially focused on living wage opportunities — ensures participants aren't just finding any job, but entering roles with the earning potential to support genuine self-sufficiency.")}
+${row("Definition:","Engage employers to identify job openings and create employment opportunities.")}
+${lvls("Must offer job placement assistance.","Must engage employers and place individuals in jobs with livable wages, based on the MIT Living Wage Calculator (livingwage.mit.edu).")}
+${row("Optional:","Employer types aligned with local labor market.")}
+${row("Success Tracking:","Number receiving placement assistance; number placed in jobs.")}
+</div>`
+            },
+            20:{
+                title:"20. Retention Services and Follow-Up",
+                html:`<div class="popup-scroll">
+${why("Getting a job is the beginning, not the end. The first months of employment are the most vulnerable — transportation breakdowns, workplace conflicts, benefit cliffs, and financial transitions can derail new employees quickly. Structured follow-up identifies problems early and keeps participants employed long enough to build real stability.")}
+${row("Definition:","Ongoing support after job placement or training completion to help individuals retain employment and advance in their careers, including access to wraparound supports and skill-building aligned with their goals.")}
+${lvls("Follow-up at 30, 60, 90, and 180 days.","Follow-up at 30, 60, 90, 180, and 365 days.")}
+${row("Optional:","Additional follow-up periods; verification tools such as employer confirmation, paystub submission, The Work Number, etc. Financial incentives to retain employment.")}
+${row("Success Tracking:","Number retained at each interval (30, 60, 90, 180, 365 days).")}
+</div>`
+            },
+            21:{
+                title:"21. Alumni Engagement",
+                html:`<div class="popup-scroll">
+${why("Formal services end, but participants' needs don't. Alumni engagement sustains momentum, supports career advancement, and creates a community of people who can mentor current participants, advocate for the program, and demonstrate that OA's impact extends well beyond initial job placement.")}
+${row("Definition:","Long-term engagement of individuals after program completion or job placement — extending beyond one year, through networking, mentorship, and/or leveraging alumni as teachers or teaching assistants.")}
+${lvls("Not required.","Must establish at least one method of alumni engagement.")}
+${row("Optional:","Format and frequency of engagement.")}
+${row("Success Tracking:","Number participating in alumni engagement.")}
+</div>`
             }
         };
 
-        const modal = document.getElementById('modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
+        /* MODAL LOGIC */
+        const modal   = document.getElementById('modal');
+        const mTitle  = document.getElementById('modal-title');
+        const mDesc   = document.getElementById('modal-description');
         const closeBtn = document.querySelector('.close');
 
-        document.querySelectorAll('.service-box').forEach(item => {
-            item.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                const def = definitions[id];
-                modalTitle.textContent = def.title;
-                modalDescription.innerHTML = def.description;
+        document.querySelectorAll('.service-box').forEach(box => {
+            box.addEventListener('click', function(){
+                const d = defs[this.dataset.id];
+                if(!d) return;
+                mTitle.textContent = d.title;
+                mDesc.innerHTML    = d.html;
                 modal.style.display = 'block';
             });
         });
 
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.style.display === 'block') {
-                modal.style.display = 'none';
-            }
+        closeBtn.addEventListener('click', ()=> modal.style.display='none');
+        window.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
+        document.addEventListener('keydown', e=>{
+            if(e.key==='Escape' && modal.style.display==='block') modal.style.display='none';
         });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
